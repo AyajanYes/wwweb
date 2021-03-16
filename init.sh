@@ -1,5 +1,7 @@
-sudo ln -sf /home/box/web/etc/nginx.conf
+sudo rm -rf /etc/nginx/sites-enabled/default
+
+sudo ln -sf /home/box/web/etc/nginx.conf 
+
 sudo /etc/init.d/nginx restart
-sudo ln -sf /home/box/web/etc/hello.py /etc/gunicorn.d/hello.py
-gunicorn -с /etc/gunicorn.d/hello.py hello
-sudo /etc/init.d/gunicorn restart -b 0.0.0.0:8080 hello:app
+
+gunicorn -w 2 -c /home/box/web/etc/hello.py hello:app & gunicorn -w 2 -c /home/box/web/etc/qa.py ask.wsgi:application & curl -vv 'http://127.0.0.1:8000/login/'
