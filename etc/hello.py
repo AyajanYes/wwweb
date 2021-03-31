@@ -1,33 +1,11 @@
-server {
-	
-
-		listen 80 default;
-	
-
-		location ^~ /uploads/ {
-	
-
-			root /home/box/web/;
-	
-
-		}
-	
-
-		location ~* ^.+\.\w+$ {
-	
-
-			root /home/box/web/public/;
-	
-
-		}
-	
-
-		location / {
-	
-
-			return 404;
-	
-
-		}
-		
-	}
+CONFIG = {
+    'mode': 'wsgi',
+    'working_dir': '/home/box/web/ask',
+    'python': '/usr/bin/python',
+    'args': (
+        '--bind=0.0.0.0:8000',
+        '--workers=16',
+        '--timeout=60',
+        'ask.wsgi:application',
+    ),
+}
